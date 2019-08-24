@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="AspNetFileNicluder.Logic.Includers.FIleIncluderToolboxControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="1000">
+    <Grid>
+        <TextBlock Text="Files to include" />
+        <ListView x:Name="ReferencesNew" Width="1000" Height="480" ItemsSource="{Binding Results}" Margin="0,25,0,0" VerticalAlignment="Bottom">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Key.Name}" />
+                        <ListView ItemsSource="{Binding Value}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <CheckBox />
+                                        <TextBlock Text="{Binding Name}" />
+                                        <TextBlock Text="{Binding FullName}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29102.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetFileNicluder", "AspNetFileNicluder\AspNetFileNicluder.csproj", "{ED2110AA-90D1-477C-AB5B-7662A9690427}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED2110AA-90D1-477C-AB5B-7662A9690427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED2110AA-90D1-477C-AB5B-7662A9690427}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED2110AA-90D1-477C-AB5B-7662A9690427}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED2110AA-90D1-477C-AB5B-7662A9690427}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D68C85B5-5785-4251-91DE-9390A867AFC4}
+	EndGlobalSection
+EndGlobal
