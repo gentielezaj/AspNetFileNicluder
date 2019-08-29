@@ -34,6 +34,7 @@ namespace AspNetFileNicluder.Logic.SQL
                 System.Data.SqlClient.SqlConnection sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString.ConnectionString);
                 ServerConnection svrConnection = new ServerConnection(sqlConnection);
                 Server server = new Server(svrConnection);
+                AppOutput.ConsoleWriteLine("Database: " + sqlConnection.Database);
                 foreach (var row in rows)
                 {
                     if (!string.IsNullOrWhiteSpace(connectionString.FilterPattern) && !Regex.IsMatch(row, connectionString.FilterPattern))
