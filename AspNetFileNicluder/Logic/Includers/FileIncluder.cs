@@ -19,14 +19,22 @@ namespace AspNetFileNicluder.Logic.Includers
 
         public bool IncludeFiles(IDictionary<Project, IEnumerable<FileInfo>> filesToInclude)
         {
-            foreach (var project in filesToInclude)
+            try
             {
-                foreach (var file in project.Value)
+                foreach (var project in filesToInclude)
                 {
-                    AppOutput.ConsoleWriteLine($"including file: {file.Name} in {project.Key.Name}");
-                    project.Key.ProjectItems.AddFromFile(file.FullName);
-                    AppOutput.ConsoleWriteLine("File included");
+                    foreach (var file in project.Value)
+                    {
+                        AppOutput.ConsoleWriteLine($"including file: {file.Name} in {project.Key.Name}");
+                        project.Key.ProjectItems.AddFromFile(file.FullName);
+                        AppOutput.ConsoleWriteLine("File included");
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                AppOutput.ConsoleWriteException(e);
+                throw;
             }
 
             return true;
@@ -59,6 +67,7 @@ namespace AspNetFileNicluder.Logic.Includers
 
         public void GetUnicludedFiles(Project project, ref Dictionary<Project, IEnumerable<FileInfo>> results)
         {
+            if (project == null) return;
             if(string.IsNullOrWhiteSpace(project.FullName))
             {
                 foreach(ProjectItem pi in project.ProjectItems)

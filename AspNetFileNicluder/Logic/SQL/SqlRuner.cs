@@ -1,16 +1,13 @@
 ﻿using AspNetFileNicluder.Logic.Util;
 using EnvDTE;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
-using Microsoft.VisualStudio.Shell;
 using System;
-using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Settings = AspNetFileNicluder.Logic.Util.Settings;
 using System.Diagnostics;
+using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
 
 namespace AspNetFileNicluder.Logic.SQL
 {
@@ -22,7 +19,11 @@ namespace AspNetFileNicluder.Logic.SQL
 
         public bool Execute()
         {
-            var text = GetOutput(); // File.ReadAllText(@"C:\Users\gogi_\Desktop\source control.txt"); // GetOutput();
+            var text = GetOutput();
+
+#if DEBUG
+            text += Environment.NewLine + File.ReadAllText(@"C:\Users\gogi_\Desktop\source control.txt");
+#endif
 
             var rows = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -30,7 +31,7 @@ namespace AspNetFileNicluder.Logic.SQL
 
             foreach (var connectionString in Settings.Databases.ConnectionStrings)
             {
-                SqlConnection sqlConnection = new SqlConnection(connectionString.ConnectionString);
+                System.Data.SqlClient.SqlConnection sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString.ConnectionString);
                 ServerConnection svrConnection = new ServerConnection(sqlConnection);
                 Server server = new Server(svrConnection);
                 foreach (var row in rows)
