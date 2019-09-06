@@ -1,0 +1,72 @@
+AppTemplateView.cs has been automatically checked out for editing.
+AppTemplatesView.cs has been automatically checked out for editing.
+AppTemplateForm.cs has been automatically checked out for editing.
+NSP.Entities.csproj has been automatically checked out for editing.
+AppTemplateRepository.cs has been automatically checked out for editing.
+CrudRepository.cs has been automatically checked out for editing.
+IgnoreLanguageProperty.cs, NSP.DataModel.csproj have been automatically checked out for editing.
+QueryInfoToQueryOver.cs has been automatically checked out for editing.
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.BusinessLogic\Repository\Base\EntityPropertyRepository.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.BusinessLogic\Repository\Base\SimpleViewMode\SimpleViewModeRepository.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.BusinessLogic\Repository\Cmdb\Ci\CiRepository.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.BusinessLogic\Repository\ServiceCatalog\ServiceItemPropertyRepository.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.BusinessLogic\Repository\ServiceCatalog\ServiceOrderItemPropertyRepository.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.BusinessLogic\Template\ITemplateManager.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.BusinessLogic\Template\TemplateManager.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Entities\App\BaseEntities\EntityPropertyView.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.RESTApi\Controllers\TemplateController.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\ControllerHelpers\TabNavigation\TabNavigationTextBoxControlHelper.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Controllers\EntityEditorController.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Controllers\TabNavigationController.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Scripts\src\app\components\access-control\access-rules\controllers\ac-entity-rules.controller.js
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Scripts\src\app\components\ci-contracts\controllers\ci-contracts-grid.controller.js
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Scripts\src\app\components\service-catalog-settings\controllers\service-catalog-items-grid.controller.js
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Scripts\src\app\views\access-control\access-rules\access-rules.html
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Views\EntityEditor\_EntityAddEdit.cshtml
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01700\NSPDataDb\20190829
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01700\NSPDataDb\20190829\fix tax view od service order.sql
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01700\NSPDataDb\20190829\normalize entity settings.sql
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01700\NSPDataDb\20190829\permission for edit contract on ci.sql
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01700\NSPDataDb\20190829\Update CiExportView.sql
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.BusinessLogic\Repository\AC\RoleManagement\Assignment\UnifiedUserScopeRoleAssignmentViewRepository.cs
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01700\NSPDataDb\20190829\RemoveNameTranslationFromUnifiedUserScopeRoleAssignmentView.sql
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01800\NSPDataDb\20190830
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01800\NSPDataDb\20190830\RemovingAcAccessRulesFromMenu.sql
+NSP.DataLayer.csproj has been automatically checked out for editing.
+NSP.DataModel.csproj has been automatically checked out for editing.
+NSP.Entities.csproj has been automatically checked out for editing.
+SimpleTicketViewController.cs has been automatically checked out for editing.
+SimpleTicketViewController.cs has been automatically checked out for editing.
+ISimpleViewModeRepository.cs has been automatically checked out for editing.
+SimpleViewModeRepository.cs has been automatically checked out for editing.
+CtiRepository.cs has been automatically checked out for editing.
+UserProfileRepository.cs has been automatically checked out for editing.
+SimpleTicketViewRepository.cs has been automatically checked out for editing.
+TicketMobileRepository.cs has been automatically checked out for editing.
+TicketRepository.cs has been automatically checked out for editing.
+IUserProfileRepository.cs has been automatically checked out for editing.
+NSP.Web.csproj has been automatically checked out for editing.
+NSP.RESTApi.csproj has been automatically checked out for editing.
+CrudRepository.cs has been automatically checked out for editing.
+NSP.BusinessLogic.csproj has been automatically checked out for editing.
+UserViewRepository.cs has been automatically checked out for editing.
+ReferenceCollection.cs has been automatically checked out for editing.
+DynamicValueManager.cs has been automatically checked out for editing.
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.BusinessLogic\Repository\App\AppInit\AppInitRepository.cs
+Conflict C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.BusinessLogic\Repository\Base\CrudRepository.cs - Unable to perform the get operation because you have a conflicting edit
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Entities\App\AppInit.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Scripts\src\app\components\access-control\access-rules\controllers\ac-access-rules-entity-form.controller.js
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Scripts\src\app\components\access-control\roles\controllers\assign-role.controller.js
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Scripts\src\app\components\access-control\roles\controllers\role-assignments.controller.js
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Scripts\src\app\components\ssp-configuration\controllers\ticket-assignees.controller.js
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Scripts\src\assets\sass\pages\_access-rules.scss
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web.Shared\Components\nsp-core-components\src\components\entity-properties\web\entity-property-popup.controller.js
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01700\NSPDataDb\DbVersionScript_10.76.1700.sql
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01700\NSPDataDb\Update 10.76.1700 Combined Script
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01700\NSPDataDb\Update 10.76.1700 Combined Script\Db Update 10.76.1700 Combined Script.sql
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01700\NSPLogDb\Log Update 10.76.1700 Combined Script
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01700\NSPLogDb\LogVersionScript_10.76.1700.sql
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\01700\NSPLogDb\Log Update 10.76.1700 Combined Script\Log Update 10.76.1700 Combined Script.sql
+Automatically resolved conflict: edit: C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.BusinessLogic\Repository\Base\CrudRepository.cs as AutoMerge
+Changeset 32548 successfully checked in.
+D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\Merge script from 10.7.5\NSPDataDb\NSPDataDb - Merge Subset Script 10.75.05500-05700 to 10.76.sql
