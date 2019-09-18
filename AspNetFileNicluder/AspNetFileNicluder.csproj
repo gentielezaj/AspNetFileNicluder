@@ -67,7 +67,7 @@
     <Compile Include="AspNetFileNicluderPackage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="anfnConfig.json" />
+    <None Include="ExapleData\anfnConfig.json" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>
@@ -106,6 +106,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ExapleData\source control.txt" />
     <Content Include="Logic\Includers\Resources\FileIncluderToolWindowCommand.png" />
     <Content Include="MainMenus\Resources\MainMenu.png" />
     <VSCTCompile Include="MainMenus\AspNetFileNicluderPackage.vsct">

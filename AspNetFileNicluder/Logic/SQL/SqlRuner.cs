@@ -22,7 +22,7 @@ namespace AspNetFileNicluder.Logic.SQL
             var text = GetOutput();
 
 #if DEBUG
-            text += Environment.NewLine + File.ReadAllText(@"C:\Users\gogi_\Desktop\source control.txt");
+            text += Environment.NewLine + File.ReadAllText(@"D:\Projects\vs extandions\AspNetFileNicluder\AspNetFileNicluder\ExapleData\source control.txt");
 #endif
 
             var rows = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -57,7 +57,8 @@ namespace AspNetFileNicluder.Logic.SQL
                     {
                         try
                         {
-                            ProcessStartInfo info = new ProcessStartInfo("sqlcmd", $" -S \"{connectionString.ConnectionString}\" -i \"{filePath}\"");
+                            var args = $" -S \"{connectionString.ServerName}\" -E -d \"{connectionString.DatabaseName}\" -i \"{filePath}\"";
+                            ProcessStartInfo info = new ProcessStartInfo("sqlcmd", args);
                             info.UseShellExecute = false;
                             info.CreateNoWindow = true;
                             info.WindowStyle = ProcessWindowStyle.Hidden;
@@ -65,7 +66,7 @@ namespace AspNetFileNicluder.Logic.SQL
                             System.Diagnostics.Process proc = new System.Diagnostics.Process();
                             proc.StartInfo = info;
                             proc.Start();
-                            //proc.WaitForExit();
+                            proc.WaitForExit();
 
                             AppOutput.ConsoleWriteLine("Executed sqlcmd: " + filePath);
                         }

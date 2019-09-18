@@ -1,0 +1,35 @@
+{
+    "database": {
+        "panes": ["Source Control - Team Foundation"],
+        "connectionStrings": [{
+            "connectionString": "Server=DESKTOP-H3F45U2\\SQLEXPRESS;Database=NSP176;Trusted_Connection=True;Connection Timeout=1000;",
+            "filterPattern": "^(Getting|Replacing) [A-Za-z]:.+(\\.)sql$",
+            "replasePattern": "^(Getting|Replacing) ",
+            "sgnorePattern": null,
+            "sqlCmdPattern": "(^(Getting|Replacing).+\\\\NSPDataDb\\\\DbVersionScript[_.0-9]+\\.sql$|^(Getting|Replacing).+\\\\NSPDataDb.+\\\\Db Update.+\\.sql$|^(Getting|Replacing) [A-Za-z]:\\\\.+\\\\NSPDataDb\\\\[A-Za-z0-9-_. ]{0,}Merge[A-Za-z0-9-_. ]+\\.sql$)"
+        },
+        {
+            "connectionString": "Server=DESKTOP-H3F45U2\\SQLEXPRESS;Database=NSPQA76;Trusted_Connection=True;Connection Timeout=1000;",
+            "filterPattern": "^(Getting|Replacing) [A-Za-z]:.+(\\.)sql$",
+            "replasePattern": "^(Getting|Replacing) ",
+            "sgnorePattern": null,
+            "sqlCmdPattern": "(^(Getting|Replacing).+\\\\NSPDataDb\\\\DbVersionScript[_.0-9]+\\.sql$|^(Getting|Replacing).+\\\\NSPDataDb.+\\\\Db Update.+\\.sql$|^(Getting|Replacing) [A-Za-z]:\\\\.+\\\\NSPDataDb\\\\[A-Za-z0-9-_. ]{0,}Merge[A-Za-z0-9-_. ]+\\.sql$)"
+        }]
+    },
+    "includFilesToProject": {
+        "fileTypes": [
+            "js", "scss", "html"
+        ],
+        "projects": {
+            "NSP.Web": [
+                "Scripts",
+                "src",
+                "app"
+            ],
+
+            "NSP.Web.Shared": [
+                "Components"
+            ]
+        }
+    }
+}

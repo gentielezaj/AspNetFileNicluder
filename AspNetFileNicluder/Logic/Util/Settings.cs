@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace AspNetFileNicluder.Logic.Util
@@ -13,14 +14,34 @@ namespace AspNetFileNicluder.Logic.Util
     {
         public Settings()
         {
+#if DEBUG
+            var configFilePath = string.IsNullOrWhiteSpace(Workspace.SolutionPath)
+                    ? Path.Combine(@"D:\Projects\vs extandions\AspNetFileNicluder\AspNetFileNicluder\ExapleData\anfnConfig.json")
+                    : Path.Combine(Workspace.SolutionPath, AppConstants.ConfigFileConstants.Name);
+#else
             var configFilePath = Path.Combine(Workspace.SolutionPath, AppConstants.ConfigFileConstants.Name);
+#endif
             if (File.Exists(configFilePath))
             {
                 var text = File.ReadAllText(configFilePath);
                 var obj = JObject.Parse(text);
-                Databases = obj[AppConstants.ConfigFileConstants.DataBase].ToObject<DatabaseModel>();
+                Databases = SetDatabaseConnectionString(obj[AppConstants.ConfigFileConstants.DataBase].ToObject<DatabaseModel>());
                 IncludFilesToProject = obj[AppConstants.ConfigFileConstants.IncludFilesFrom].ToObject<IncludFilesToProjectModel>();
             }
+        }
+
+        private DatabaseModel SetDatabaseConnectionString(DatabaseModel model)
+        {
+            foreach(var c in model.ConnectionStrings.Where(c => !string.IsNullOrWhiteSpace(c.SameAs)))
+            {
+                var sameAs = model.ConnectionStrings.Single(cs => cs.Name == c.SameAs);
+                c.FilterPattern = sameAs.FilterPattern;
+                c.IgnorePattern = sameAs.IgnorePattern;
+                c.ReplasePattern = sameAs.ReplasePattern;
+                c.SqlCmdPattern = sameAs.SqlCmdPattern;
+            }
+
+            return model;
         }
 
         public IncludFilesToProjectModel IncludFilesToProject { get; set; }
@@ -42,6 +63,11 @@ namespace AspNetFileNicluder.Logic.Util
             public IEnumerable<string> Panes { get; set; } = new string[] { "Source Control - Team Foundation" };
 
             public IEnumerable<DatabaseConnectionString> ConnectionStrings { get; set; }
+
+            public DatabaseConnectionString GetConnectionStringByName(string name)
+            {
+                return ConnectionStrings.SingleOrDefault(c => c.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+            } 
         }
 
         public class DatabaseConnectionString
@@ -52,6 +78,33 @@ namespace AspNetFileNicluder.Logic.Util
             public string IgnorePattern { get; set; }
 
             public string SqlCmdPattern { get; set; }
+
+            public string Name { get; set; }
+            public string SameAs { get; set; }
+
+            public string DatabaseName
+            {
+                get
+                {
+                    if (string.IsNullOrWhiteSpace(ConnectionString)) return null;
+                    var split = ConnectionString.Split(';');
+                    var database = split.FirstOrDefault(f => f.StartsWith("Database=", StringComparison.InvariantCultureIgnoreCase));
+                    if (string.IsNullOrEmpty(database)) return null;
+                    return database.Split('=')[1];
+                }
+            }
+
+            public string ServerName
+            {
+                get
+                {
+                    if (string.IsNullOrWhiteSpace(ConnectionString)) return null;
+                    var split = ConnectionString.Split(';');
+                    var database = split.FirstOrDefault(f => f.StartsWith("Server=", StringComparison.InvariantCultureIgnoreCase));
+                    if (string.IsNullOrEmpty(database)) return null;
+                    return database.Split('=')[1];
+                }
+            }
         }
 
         public class IncludFilesToProjectModel
