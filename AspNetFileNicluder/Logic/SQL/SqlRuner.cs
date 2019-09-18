@@ -8,6 +8,8 @@ using Settings = AspNetFileNicluder.Logic.Util.Settings;
 using System.Diagnostics;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
+using System.Text;
+using System.Threading;
 
 namespace AspNetFileNicluder.Logic.SQL
 {
@@ -17,7 +19,7 @@ namespace AspNetFileNicluder.Logic.SQL
         {
         }
 
-        public bool Execute()
+        public int Execute()
         {
             var text = GetOutput();
 
@@ -28,13 +30,13 @@ namespace AspNetFileNicluder.Logic.SQL
             var rows = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
             var havFilesToExecute = false;
-
+            var errorCount = 0;
             foreach (var connectionString in Settings.Databases.ConnectionStrings)
             {
                 System.Data.SqlClient.SqlConnection sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString.ConnectionString);
                 ServerConnection svrConnection = new ServerConnection(sqlConnection);
                 Server server = new Server(svrConnection);
-                AppOutput.ConsoleWriteLine("Database: " + sqlConnection.Database);
+                AppOutput.ConsoleWriteLine(Environment.NewLine, "------ Database: " + sqlConnection.Database + " -------");
                 foreach (var row in rows)
                 {
                     if (!string.IsNullOrWhiteSpace(connectionString.FilterPattern) && !Regex.IsMatch(row, connectionString.FilterPattern))
@@ -55,25 +57,76 @@ namespace AspNetFileNicluder.Logic.SQL
 
                     if (!string.IsNullOrWhiteSpace(connectionString.SqlCmdPattern) && Regex.IsMatch(row, connectionString.SqlCmdPattern))
                     {
+                        System.Diagnostics.Process proc = new System.Diagnostics.Process();
                         try
                         {
-                            var args = $" -S \"{connectionString.ServerName}\" -E -d \"{connectionString.DatabaseName}\" -i \"{filePath}\"";
+                            var args = $" -S \"{sqlConnection.DataSource}\" -E -d \"{sqlConnection.Database}\" -i \"{filePath}\"";
                             ProcessStartInfo info = new ProcessStartInfo("sqlcmd", args);
                             info.UseShellExecute = false;
                             info.CreateNoWindow = true;
                             info.WindowStyle = ProcessWindowStyle.Hidden;
                             info.RedirectStandardOutput = true;
-                            System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                            info.RedirectStandardError = true;
                             proc.StartInfo = info;
-                            proc.Start();
-                            proc.WaitForExit();
 
-                            AppOutput.ConsoleWriteLine("Executed sqlcmd: " + filePath);
+                            var output = new StringBuilder();
+                            var error = new StringBuilder();
+                            using (AutoResetEvent outputWaitHandle = new AutoResetEvent(false))
+                            using (AutoResetEvent errorWaitHandle = new AutoResetEvent(false))
+                            {
+                                proc.ErrorDataReceived += (sender, e) =>
+                                {
+                                    if (e.Data == null)
+                                    {
+                                        errorWaitHandle.Set();
+                                    }
+                                    else
+                                    {
+                                        error.AppendLine(e.Data);
+                                    }
+                                };
+
+                                proc.OutputDataReceived += (sender, e) =>
+                                {
+                                    if (e.Data == null)
+                                    {
+                                        outputWaitHandle.Set();
+                                    }
+                                    else
+                                    {
+                                        output.AppendLine(e.Data);
+                                    }
+                                };
+
+                                proc.Start();
+                                proc.BeginErrorReadLine();
+                                proc.BeginOutputReadLine();
+
+                                proc.WaitForExit();
+                            }
+
+                            var errorString = error.ToString();
+                            var outputString = output.ToString()?.ToLower();
+
+                            var isSuccess = string.IsNullOrEmpty(errorString)
+                                && (string.IsNullOrEmpty(outputString) || outputString.Contains("commands completed successfully") || Regex.IsMatch(outputString, "[(][0-9]+ row[s]* affected[)]", RegexOptions.Multiline));
+
+
+                            if (isSuccess) AppOutput.ConsoleWriteLine("Executed sqlcmd: " + filePath);
+                            else
+                            {
+                                errorCount++;
+                                AppOutput.ConsoleWriteLine("-----------", "----- Error sqlcmd: " + filePath, $"{error.ToString()}{Environment.NewLine}{output.ToString()}", "-------------");
+                            }
                         }
                         catch (Exception e)
                         {
                             AppOutput.ConsoleWriteException(e, "Error at: " + filePath);
                             throw;
+                        }
+                        finally
+                        {
+                            proc.Close();
                         }
                         continue;
                     }
@@ -101,7 +154,7 @@ namespace AspNetFileNicluder.Logic.SQL
                 sqlConnection.Close();
             }
 
-            return havFilesToExecute;
+            return havFilesToExecute ? errorCount : -1;
         }
 
         private string GetOutput()

@@ -30,6 +30,11 @@ namespace AspNetFileNicluder.Logic.Util
 
             OutputPane.Activate();
 
+            if(text?.Any() != true)
+            {
+                text = new string[1] { Environment.NewLine };
+            }
+
             foreach(var t in text)
             {
                 OutputPane.OutputString(t + Environment.NewLine);

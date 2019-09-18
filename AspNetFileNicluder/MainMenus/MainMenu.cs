@@ -101,12 +101,32 @@ namespace AspNetFileNicluder.MainMenus
 
             //var message = string.Join(Environment.NewLine, files.Select(d => string.Join(Environment.NewLine, d.Value.Select(f => f.FullName))));
 
+            string message;
+            OLEMSGICON type;
+
+            switch (executed)
+            {
+                case 0:
+                    message = "Files executed";
+                    type = OLEMSGICON.OLEMSGICON_INFO;
+                    break;
+
+                case -1:
+                    message = "No files to execute";
+                    type = OLEMSGICON.OLEMSGICON_INFO;
+                    break;
+                default:
+                    message = executed + " files head errors";
+                    type = OLEMSGICON.OLEMSGICON_CRITICAL;
+                    break;
+            }
+
             //// Show a message box to prove we were here
             VsShellUtilities.ShowMessageBox(
                 this.package,
-                executed ? "Files executed" : "No files to execute",
+                message,
                 "Execute sql files",
-                OLEMSGICON.OLEMSGICON_INFO,
+                type,
                 OLEMSGBUTTON.OLEMSGBUTTON_OK,
                 OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
         }

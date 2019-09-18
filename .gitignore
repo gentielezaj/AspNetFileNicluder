@@ -5,3 +5,5 @@
 /.vs
 /AspNetFileNicluder/bin
 /AspNetFileNicluder/obj
+/FastApp/bin
+/FastApp/obj
