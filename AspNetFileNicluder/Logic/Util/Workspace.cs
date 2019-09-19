@@ -1,4 +1,5 @@
-﻿using EnvDTE;
+﻿using AspNetFileNicluder.Logic.Utils;
+using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace AspNetFileNicluder.Logic.Util
         public static EnvDTE80.DTE2 SolutionDte => GetSolution<SDTE, EnvDTE80.DTE2>();
 
         public static string SolutionPath => GetSolutionPath();
+
+        public static string ConfigFileFullName => string.IsNullOrEmpty(SolutionPath) ? null : Path.Combine(SolutionPath, AppConstants.ConfigFileConstants.Name);
 
         public static IVsOutputWindow Output => GetSolution<IVsOutputWindow>();
 

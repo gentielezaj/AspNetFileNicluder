@@ -15,11 +15,9 @@ namespace AspNetFileNicluder.Logic.Util
         public Settings()
         {
 #if DEBUG
-            var configFilePath = string.IsNullOrWhiteSpace(Workspace.SolutionPath)
-                    ? Path.Combine(@"D:\Projects\vs extandions\AspNetFileNicluder\AspNetFileNicluder\ExapleData\anfnConfig.json")
-                    : Path.Combine(Workspace.SolutionPath, AppConstants.ConfigFileConstants.Name);
+            var configFilePath = Workspace.ConfigFileFullName ??  Path.Combine(@"D:\Projects\vs extandions\AspNetFileNicluder\AspNetFileNicluder\ExapleData\anfnConfig.json");
 #else
-            var configFilePath = Path.Combine(Workspace.SolutionPath, AppConstants.ConfigFileConstants.Name);
+            var configFilePath = Workspace.ConfigFileFullName;
 #endif
             if (File.Exists(configFilePath))
             {

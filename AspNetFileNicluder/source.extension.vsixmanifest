@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="AspNetFileNicluder.e07eb129-d4ec-4496-8956-c351b25c3d5c" Version="1.0.1" Language="en-US" Publisher="Genti Elezaj" />
+        <Identity Id="AspNetFileNicluder.e07eb129-d4ec-4496-8956-c351b25c3d5c" Version="1.0.2" Language="en-US" Publisher="Genti Elezaj" />
         <DisplayName>AspNetFileNicluder</DisplayName>
         <Description xml:space="preserve">Empty VSIX Project.</Description>
         <Preview>true</Preview>

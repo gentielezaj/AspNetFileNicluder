@@ -1,8 +1,11 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.IO;
 using System.Linq;
 using AspNetFileNicluder.Logic.Includers;
 using AspNetFileNicluder.Logic.SQL;
+using AspNetFileNicluder.Logic.Util;
+using AspNetFileNicluder.Logic.Utils;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
@@ -18,7 +21,7 @@ namespace AspNetFileNicluder.MainMenus
         /// Command ID.
         /// </summary>
         public const int CommandId = 0x0100;
-        //public const int CommandId2 = 0x0102;
+        public const int OpenConfigFile = 0x0099;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -45,9 +48,9 @@ namespace AspNetFileNicluder.MainMenus
             var menuItem = new MenuCommand(this.Execute, menuCommandID);
             commandService.AddCommand(menuItem);
 
-            //var menuCommandID1 = new CommandID(CommandSet, CommandId2);
-            //var menuItem1 = new MenuCommand(this.Execute, menuCommandID1);
-            //commandService.AddCommand(menuItem1);
+            var menuCommandID1 = new CommandID(CommandSet, OpenConfigFile);
+            var menuItem1 = new MenuCommand(this.OpenCofigFile, menuCommandID1);
+            commandService.AddCommand(menuItem1);
         }
 
         /// <summary>
@@ -129,6 +132,19 @@ namespace AspNetFileNicluder.MainMenus
                 type,
                 OLEMSGBUTTON.OLEMSGBUTTON_OK,
                 OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+        }
+
+        private void OpenCofigFile(object sender, EventArgs e)
+        {
+            var file = Workspace.ConfigFileFullName;
+            if (!File.Exists(file))
+            {
+                var fs = File.Create(file);
+                fs.Close();
+            }
+
+            if (!Workspace.SolutionDte.ItemOperations.IsFileOpen(file))
+                Workspace.SolutionDte.ItemOperations.OpenFile(file);
         }
     }
 }
