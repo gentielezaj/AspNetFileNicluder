@@ -10,19 +10,19 @@
         "ignorePattern": null,
         "sqlCmdPattern": "(^(Getting|Replacing).+\\\\NSPDataDb\\\\DbVersionScript[_.0-9]{0,}.[.]sql$|^(Getting|Replacing).+\\\\NSPDataDb\\\\.+\\\\Db Update.+[.]sql$|^(Getting|Replacing) [A-Za-z]:\\\\.+\\\\NSPDataDb\\\\[A-Za-z0-9-_. ]{0,}Merge[A-Za-z0-9-_. ]+.[.]sql$)"
       },
-      {
-        "name": "NSPQA76",
-        "sameAs": "NSP176",
-        "connectionString": "Server=DESKTOP-H3F45U2\\SQLEXPRESS;Database=NSPQA76;Trusted_Connection=True;Connection Timeout=1000;"
-      },
-      {
-        "name": "NSPQA75LOG",
-        "connectionString": "Server=DESKTOP-H3F45U2\\SQLEXPRESS;Database=NSPQA75LOG;Trusted_Connection=True;Connection Timeout=1000;",
-        "filterPattern": "^(Getting|Replacing) [A-Z]:.+\\\\NSPLogDb\\\\.+[.]sql$",
-        "replasePattern": "^(Getting|Replacing) ",
-        "ignorePattern": "(^(Getting|Replacing).+\\\\NSPLogDb\\\\LogVersionScript[_.0-9]{0,}.[.]sql$|^(Getting|Replacing).+\\\\NSPLogDb\\\\.+\\\\Log Update.+[.]sql$|^(Getting|Replacing) [A-Za-z]:\\\\.+\\\\NSPLogDb\\\\[A-Za-z0-9-_. ]{0,}Merge[A-Za-z0-9-_. ]+.[.]sql$)",
-        "sqlCmdPattern": null
-      }
+      //{
+      //  "name": "NSPQA76",
+      //  "sameAs": "NSP176",
+      //  "connectionString": "Server=DESKTOP-H3F45U2\\SQLEXPRESS;Database=NSPQA76;Trusted_Connection=True;Connection Timeout=1000;"
+      //},
+      //{
+      //  "name": "NSPQA75LOG",
+      //  "connectionString": "Server=DESKTOP-H3F45U2\\SQLEXPRESS;Database=NSPQA75LOG;Trusted_Connection=True;Connection Timeout=1000;",
+      //  "filterPattern": "^(Getting|Replacing) [A-Z]:.+\\\\NSPLogDb\\\\.+[.]sql$",
+      //  "replasePattern": "^(Getting|Replacing) ",
+      //  "ignorePattern": "(^(Getting|Replacing).+\\\\NSPLogDb\\\\LogVersionScript[_.0-9]{0,}.[.]sql$|^(Getting|Replacing).+\\\\NSPLogDb\\\\.+\\\\Log Update.+[.]sql$|^(Getting|Replacing) [A-Za-z]:\\\\.+\\\\NSPLogDb\\\\[A-Za-z0-9-_. ]{0,}Merge[A-Za-z0-9-_. ]+.[.]sql$)",
+      //  "sqlCmdPattern": null
+      //}
     ]
   },
   "includFilesToProject": {

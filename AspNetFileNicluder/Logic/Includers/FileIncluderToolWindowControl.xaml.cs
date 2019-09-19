@@ -31,6 +31,7 @@
 
         public void Refresh()
         {
+            fileIncluder.RefreshSettings();
             Results = GetResults(fileIncluder.GetUnicludedFiles());
             CollectionViewSource.GetDefaultView(Results).Refresh();
         }
