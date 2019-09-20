@@ -1,6 +1,7 @@
 {
   "database": {
-    "panes": [ "Source Control - Team Foundation" ],
+    "panes": [ "Source Control - Git" ],
+    "setDelimiterOnPanesAfterRead": true,
     "folderPickerDefaltPath": "D:\\Nilex-data\\ReleaseNotesAndSQL\\10.7.6",
     "connectionStrings": [
       {

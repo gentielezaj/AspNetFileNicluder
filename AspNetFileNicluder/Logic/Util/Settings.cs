@@ -15,7 +15,7 @@ namespace AspNetFileNicluder.Logic.Util
         public Settings()
         {
 #if DEBUG
-            var configFilePath = Workspace.ConfigFileFullName ??  Path.Combine(@"D:\Projects\vs extandions\AspNetFileNicluder\AspNetFileNicluder\ExapleData\anfnConfig.json");
+            var configFilePath = File.Exists(Workspace.ConfigFileFullName) ? Workspace.ConfigFileFullName : Path.Combine(@"D:\Projects\vs extandions\AspNetFileNicluder\AspNetFileNicluder\ExapleData\anfnConfig.json");
 #else
             var configFilePath = Workspace.ConfigFileFullName;
 #endif
@@ -59,6 +59,9 @@ namespace AspNetFileNicluder.Logic.Util
         public class DatabaseModel
         {
             public string FolderPickerDefaltPath { get; set; } = Workspace.SolutionPath;
+
+            public bool SetDelimiterOnPanesAfterRead { get; set; }
+
             public IEnumerable<string> Panes { get; set; } = new string[] { "Source Control - Team Foundation" };
 
             public IEnumerable<DatabaseConnectionString> ConnectionStrings { get; set; }

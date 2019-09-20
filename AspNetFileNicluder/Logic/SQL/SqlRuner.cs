@@ -10,6 +10,7 @@ using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 using System.Text;
 using System.Threading;
+using AspNetFileNicluder.Logic.Utils;
 
 namespace AspNetFileNicluder.Logic.SQL
 {
@@ -26,24 +27,51 @@ namespace AspNetFileNicluder.Logic.SQL
 
             var files = Directory.GetFileSystemEntries(path).Select(f => "Getting " + f).ToArray();
 
-            return Execute(files);
+            return ExecuteFiles(files);
         } 
         #endregion
 
         public int Execute()
         {
-            var text = GetOutput();
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+            EnvDTE.OutputWindowPanes panes = Dte.ToolWindows.OutputWindow.OutputWindowPanes;
 
-#if DEBUG
-            text += Environment.NewLine + File.ReadAllText(@"D:\Projects\vs extandions\AspNetFileNicluder\AspNetFileNicluder\ExapleData\source control.txt");
-#endif
+            var result = string.Empty;
+            foreach (OutputWindowPane pane in panes)
+            {
+                if (Settings.Databases.Panes.Contains(pane.Name))
+                {
+                    try
+                    {
+                        pane.Activate();
+                        var sel = pane.TextDocument.Selection;
+                        sel.StartOfDocument(false);
+                        sel.EndOfDocument(true);
+                        var text = sel.Text;
+                        if (Settings.Databases.SetDelimiterOnPanesAfterRead)
+                        {
+                            var indexOfDelimiter = result.LastIndexOf(AppConstants.DelimiterOnPanesAfterRead);
+                            if (indexOfDelimiter > 0)
+                                result = result.Substring(indexOfDelimiter);
 
-            var rows = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+                            pane.OutputString(Environment.NewLine + AppConstants.DelimiterOnPanesAfterRead + Environment.NewLine);
+                        }
+                        result += Environment.NewLine + text + Environment.NewLine;
+                    }
+                    catch (Exception e)
+                    {
+                        AppOutput.ConsoleWriteException(e);
+                        throw;
+                    }
+                }
+            }
 
-            return Execute(rows);
+            var rows = result.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+
+            return ExecuteFiles(rows);
         }
 
-        public int Execute(params string[] rows)
+        public int ExecuteFiles(params string[] files)
         {
             var havFilesToExecute = false;
             var errorCount = 0;
@@ -53,7 +81,7 @@ namespace AspNetFileNicluder.Logic.SQL
                 ServerConnection svrConnection = new ServerConnection(sqlConnection);
                 Server server = new Server(svrConnection);
                 AppOutput.ConsoleWriteLine(Environment.NewLine, "------ Database: " + sqlConnection.Database + " -------");
-                foreach (var row in rows)
+                foreach (var row in files)
                 {
                     if (!string.IsNullOrWhiteSpace(connectionString.FilterPattern) && !Regex.IsMatch(row, connectionString.FilterPattern))
                     {
@@ -171,35 +199,6 @@ namespace AspNetFileNicluder.Logic.SQL
             }
 
             return havFilesToExecute ? errorCount : -1;
-        }
-
-        private string GetOutput()
-        {
-            EnvDTE.OutputWindowPanes panes = Dte.ToolWindows.OutputWindow.OutputWindowPanes;
-
-            var result = string.Empty;
-            foreach (OutputWindowPane pane in panes)
-            {
-                if (Settings.Databases.Panes.Contains(pane.Name))
-                {
-                    try
-                    {
-                        pane.Activate();
-                        var sel = pane.TextDocument.Selection;
-                        sel.StartOfDocument(false);
-                        sel.EndOfDocument(true);
-                        result += sel.Text + "\n";
-                    }
-                    catch (Exception e)
-                    {
-                        //AppOutput.ConsoleWriteException(e);
-                        //throw;
-                        result = File.ReadAllText("C:\\Users\\gogi_\\Desktop\\source control.txt");
-                    }
-                }
-            }
-
-            return result;
         }
     }
 }

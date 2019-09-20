@@ -10,6 +10,7 @@ namespace AspNetFileNicluder.Logic.Utils
     {
         public const string AppName = "AspNetFileIncluder";
         public const string AppNameView = "Asp.net file includer";
+        public const string DelimiterOnPanesAfterRead = " ====== Asp net file Inclider delimiter ======";
 
         public static class ConfigFileConstants
         {
