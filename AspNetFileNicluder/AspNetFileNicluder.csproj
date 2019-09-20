@@ -45,6 +45,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Logic\Configs\Config.cs" />
     <Compile Include="Logic\Includers\FileIncluder.cs" />
     <Compile Include="Logic\Includers\FIleIncluderToolboxControl.xaml.cs">
       <DependentUpon>FIleIncluderToolboxControl.xaml</DependentUpon>
@@ -56,6 +57,10 @@
     </Compile>
     <Compile Include="Logic\Includers\FileListResultModel.cs" />
     <Compile Include="Logic\Includers\ProvideToolboxControlAttribute.cs" />
+    <Compile Include="Logic\SQL\Picker\ProvideToolboxControlAttribute.cs" />
+    <Compile Include="Logic\SQL\Picker\ToolboxControl1.xaml.cs">
+      <DependentUpon>ToolboxControl1.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Logic\Util\AppConstants.cs" />
     <Compile Include="Logic\SQL\SqlRuner.cs" />
     <Compile Include="Logic\Util\AppOutput.cs" />
@@ -123,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Logic\Includers\FileIncluderToolWindowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Logic\SQL\Picker\ToolboxControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

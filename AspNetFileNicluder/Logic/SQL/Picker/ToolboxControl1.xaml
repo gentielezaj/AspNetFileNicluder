@@ -1,0 +1,15 @@
+﻿<ui:DialogWindow
+    xmlns:ui="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0" x:Class="AspNetFileNicluder.Logic.SQL.Picker.ToolboxControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="284.18" d:DesignWidth="492.383">
+    <Grid>
+        <TextBlock Text="Files to include" Name="ResultText"/>
+        <Button Content="Add folder" HorizontalAlignment="Right" VerticalAlignment="Top" Click="OpenFolderPickerClick" Width="75"/>
+    </Grid>
+
+</ui:DialogWindow> 
+    

@@ -1,15 +1,16 @@
 {
   "database": {
     "panes": [ "Source Control - Team Foundation" ],
+    "folderPickerDefaltPath": "D:\\Nilex-data\\ReleaseNotesAndSQL\\10.7.6",
     "connectionStrings": [
       {
         "name": "NSP176",
         "connectionString": "Server=DESKTOP-H3F45U2\\SQLEXPRESS;Database=NSP176;Trusted_Connection=True;Connection Timeout=1000;",
-        "filterPattern": "^(Getting|Replacing) [A-Z]:.+\\\\NSPDataDb\\\\.+[.]sql$",
+        "filterPattern": "^(Getting |Replacing ){0,1}[A-Z]:.+\\\\NSPDataDb\\\\.+[.]sql$",
         "replasePattern": "^(Getting|Replacing) ",
         "ignorePattern": null,
-        "sqlCmdPattern": "(^(Getting|Replacing).+\\\\NSPDataDb\\\\DbVersionScript[_.0-9]{0,}.[.]sql$|^(Getting|Replacing).+\\\\NSPDataDb\\\\.+\\\\Db Update.+[.]sql$|^(Getting|Replacing) [A-Za-z]:\\\\.+\\\\NSPDataDb\\\\[A-Za-z0-9-_. ]{0,}Merge[A-Za-z0-9-_. ]+.[.]sql$)"
-      },
+        "sqlCmdPattern": "^(Getting |Replacing ){0,1}[A-Za-z]:\\\\.+\\\\NSPDataDb\\\\.*(DbVersionScript[_.0-9]{0,}.[.]sql$|Db Update.+[.]sql$|Merge Subset Script[a-zA-Z0-9-_. ]+.[.]sql$)"
+      }
       //{
       //  "name": "NSPQA76",
       //  "sameAs": "NSP176",

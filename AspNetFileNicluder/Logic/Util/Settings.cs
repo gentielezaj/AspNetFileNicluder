@@ -58,6 +58,7 @@ namespace AspNetFileNicluder.Logic.Util
 
         public class DatabaseModel
         {
+            public string FolderPickerDefaltPath { get; set; } = Workspace.SolutionPath;
             public IEnumerable<string> Panes { get; set; } = new string[] { "Source Control - Team Foundation" };
 
             public IEnumerable<DatabaseConnectionString> ConnectionStrings { get; set; }

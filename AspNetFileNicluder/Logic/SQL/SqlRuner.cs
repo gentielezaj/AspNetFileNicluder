@@ -19,6 +19,17 @@ namespace AspNetFileNicluder.Logic.SQL
         {
         }
 
+        #region ExecuteFromDirectoryPath
+        public int ExecuteFromDirectoryPath(string path)
+        {
+            if (!Directory.Exists(path)) return -1;
+
+            var files = Directory.GetFileSystemEntries(path).Select(f => "Getting " + f).ToArray();
+
+            return Execute(files);
+        } 
+        #endregion
+
         public int Execute()
         {
             var text = GetOutput();
@@ -29,6 +40,11 @@ namespace AspNetFileNicluder.Logic.SQL
 
             var rows = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
+            return Execute(rows);
+        }
+
+        public int Execute(params string[] rows)
+        {
             var havFilesToExecute = false;
             var errorCount = 0;
             foreach (var connectionString in Settings.Databases.ConnectionStrings)

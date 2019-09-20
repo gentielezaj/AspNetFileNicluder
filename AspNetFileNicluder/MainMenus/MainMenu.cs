@@ -2,8 +2,10 @@
 using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
+using AspNetFileNicluder.Logic.Configs;
 using AspNetFileNicluder.Logic.Includers;
 using AspNetFileNicluder.Logic.SQL;
+using AspNetFileNicluder.Logic.SQL.Picker;
 using AspNetFileNicluder.Logic.Util;
 using AspNetFileNicluder.Logic.Utils;
 using Microsoft.VisualStudio.Shell;
@@ -22,6 +24,7 @@ namespace AspNetFileNicluder.MainMenus
         /// </summary>
         public const int CommandId = 0x0100;
         public const int OpenConfigFile = 0x0099;
+        public const int RunSqlFolder = 0x0104;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -51,6 +54,10 @@ namespace AspNetFileNicluder.MainMenus
             var menuCommandID1 = new CommandID(CommandSet, OpenConfigFile);
             var menuItem1 = new MenuCommand(this.OpenCofigFile, menuCommandID1);
             commandService.AddCommand(menuItem1);
+
+            var menuCommandRunSqlFolder = new CommandID(CommandSet, RunSqlFolder);
+            var menuItemRunSqlFolder = new MenuCommand(this.OpenFolderRunner, menuCommandRunSqlFolder);
+            commandService.AddCommand(menuItemRunSqlFolder);
         }
 
         /// <summary>
@@ -100,14 +107,42 @@ namespace AspNetFileNicluder.MainMenus
 
             var executed = new SqlRuner().Execute();
 
-            ////var window = new FIleIncluderToolboxControl();
+            OpenExecuteResultDialogMessage(executed);
+        }
 
-            //var message = string.Join(Environment.NewLine, files.Select(d => string.Join(Environment.NewLine, d.Value.Select(f => f.FullName))));
+        private void OpenCofigFile(object sender, EventArgs e)
+        {
+            Config.OpenConfigFile(this.package);
+            //var tool = new ToolboxControl1();
+            //tool.ShowDialog();
+        }
 
+        private void OpenFolderRunner(object sender, EventArgs e)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var settings = new Settings();
+            var dialog = new Microsoft.Win32.SaveFileDialog();
+            dialog.InitialDirectory = settings.Databases.FolderPickerDefaltPath; // Use current value for initial dir
+            dialog.Title = "Select a Directory"; // instead of default "Save As"
+            dialog.Filter = "Directory|*.this.directory"; // Prevents displaying files
+            dialog.FileName = "select"; // Filename will then be "select.this.directory"
+            dialog.ShowDialog();
+            string path = dialog.FileName;
+            // Remove fake filename from resulting path
+            path = path.Replace("\\select.this.directory", "");
+            path = path.Replace(".this.directory", "");
+            // Our final value is in path
+
+            var exexuted = new SqlRuner().ExecuteFromDirectoryPath(path);
+            OpenExecuteResultDialogMessage(exexuted);
+        }
+
+        private void OpenExecuteResultDialogMessage(int executeResult)
+        {
             string message;
             OLEMSGICON type;
 
-            switch (executed)
+            switch (executeResult)
             {
                 case 0:
                     message = "Files executed";
@@ -119,7 +154,7 @@ namespace AspNetFileNicluder.MainMenus
                     type = OLEMSGICON.OLEMSGICON_INFO;
                     break;
                 default:
-                    message = executed + " files head errors";
+                    message = executeResult + " files head errors";
                     type = OLEMSGICON.OLEMSGICON_CRITICAL;
                     break;
             }
@@ -132,19 +167,6 @@ namespace AspNetFileNicluder.MainMenus
                 type,
                 OLEMSGBUTTON.OLEMSGBUTTON_OK,
                 OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
-        }
-
-        private void OpenCofigFile(object sender, EventArgs e)
-        {
-            var file = Workspace.ConfigFileFullName;
-            if (!File.Exists(file))
-            {
-                var fs = File.Create(file);
-                fs.Close();
-            }
-
-            if (!Workspace.SolutionDte.ItemOperations.IsFileOpen(file))
-                Workspace.SolutionDte.ItemOperations.OpenFile(file);
         }
     }
 }

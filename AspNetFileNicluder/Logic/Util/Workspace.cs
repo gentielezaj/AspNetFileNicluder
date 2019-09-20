@@ -22,6 +22,8 @@ namespace AspNetFileNicluder.Logic.Util
 
         public static IVsOutputWindow Output => GetSolution<IVsOutputWindow>();
 
+        public static bool IsOpenSolution => !string.IsNullOrWhiteSpace(SolutionPath);
+
 
         public static Settings Settings => new Settings();
 
