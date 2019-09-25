@@ -25,7 +25,7 @@ namespace AspNetFileNicluder.Logic.SQL
         {
             if (!Directory.Exists(path)) return -1;
 
-            var files = Directory.GetFileSystemEntries(path).Select(f => "Getting " + f).ToArray();
+            var files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);  //Directory.GetFileSystemEntries(path, "*", ).ToArray();
 
             return ExecuteFiles(files);
         } 

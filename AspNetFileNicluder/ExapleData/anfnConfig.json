@@ -1,3 +1,4 @@
+//{solutionDir} => fullPath to open solution folder
 {
   "database": {
     "panes": [ "Source Control - Git" ],
@@ -47,5 +48,8 @@
   },
   "catchDisable": [
     "GetInMemoryTablesCategory"
+  ],
+  "valueChanger":[
+    "{solutionDir}\\NSP.Web\\web.config"
   ]
 }

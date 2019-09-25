@@ -23,7 +23,8 @@ namespace AspNetFileNicluder.Logic.Util
 
         public static void ConsoleWriteLine(params string[] text)
         {
-            if(OutputPane == null)
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+            if (OutputPane == null)
             {
                 SetAppOutput();
             }
