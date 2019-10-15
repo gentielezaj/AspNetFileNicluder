@@ -2,12 +2,9 @@
 using EnvDTE;
 using System.Linq;
 using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using IAsyncServiceProvider = Microsoft.VisualStudio.Shell.IAsyncServiceProvider;
-using System.Threading.Tasks;
 
 namespace AspNetFileNicluder.Logic.Includers
 {
@@ -19,6 +16,7 @@ namespace AspNetFileNicluder.Logic.Includers
 
         public bool IncludeFiles(IDictionary<Project, IEnumerable<FileInfo>> filesToInclude)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 foreach (var project in filesToInclude)

@@ -1,12 +1,10 @@
 ﻿using AspNetFileNicluder.Logic.Utils;
+using Microsoft.VisualStudio.Shell;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace AspNetFileNicluder.Logic.Util
 {
@@ -25,12 +23,30 @@ namespace AspNetFileNicluder.Logic.Util
                 var obj = JObject.Parse(text);
                 Databases = SetDatabaseConnectionString(obj[AppConstants.ConfigFileConstants.DataBase].ToObject<DatabaseModel>());
                 IncludFilesToProject = obj[AppConstants.ConfigFileConstants.IncludFilesFrom].ToObject<IncludFilesToProjectModel>();
+                ChangeConstant = obj[AppConstants.ConfigFileConstants.ChangeConstants].ToObject<ChangeConstants>();
             }
         }
 
+        public IncludFilesToProjectModel IncludFilesToProject { get; set; }
+        public DatabaseModel Databases { get; set; }
+        public ChangeConstants ChangeConstant { get; set; }
+
+        #region Methodes
+
+        public string GetProjectFullPath(string project, bool directoryBase = false, string basePath = null, bool asDirectory = true)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var path = Path.Combine(basePath ?? Workspace.SolutionPath, directoryBase ? IncludFilesToProject.ProjectAsPath(project) : project);
+            if (asDirectory && !path.EndsWith("\\"))
+            {
+                path += "\\";
+            }
+
+            return path;
+        }
         private DatabaseModel SetDatabaseConnectionString(DatabaseModel model)
         {
-            foreach(var c in model.ConnectionStrings.Where(c => !string.IsNullOrWhiteSpace(c.SameAs)))
+            foreach (var c in model.ConnectionStrings.Where(c => !string.IsNullOrWhiteSpace(c.SameAs)))
             {
                 var sameAs = model.ConnectionStrings.Single(cs => cs.Name == c.SameAs);
                 c.FilterPattern = sameAs.FilterPattern;
@@ -40,22 +56,10 @@ namespace AspNetFileNicluder.Logic.Util
             }
 
             return model;
-        }
+        } 
+        #endregion
 
-        public IncludFilesToProjectModel IncludFilesToProject { get; set; }
-        public DatabaseModel Databases { get; set; }
-
-        public string GetProjectFullPath(string project, bool directoryBase = false, string basePath = null, bool asDirectory = true)
-        {
-            var path = Path.Combine(basePath ?? Workspace.SolutionPath, directoryBase ? IncludFilesToProject.ProjectAsPath(project) : project);
-            if (asDirectory && !path.EndsWith("\\"))
-            {
-                path += "\\";
-            }
-
-            return path;
-        }
-
+        #region classes
         public class DatabaseModel
         {
             public string FolderPickerDefaltPath { get; set; } = Workspace.SolutionPath;
@@ -69,7 +73,7 @@ namespace AspNetFileNicluder.Logic.Util
             public DatabaseConnectionString GetConnectionStringByName(string name)
             {
                 return ConnectionStrings.SingleOrDefault(c => c.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
-            } 
+            }
         }
 
         public class DatabaseConnectionString
@@ -126,5 +130,28 @@ namespace AspNetFileNicluder.Logic.Util
                 return Path.Combine(project, Path.Combine(Projects[project].ToArray()));
             }
         }
+
+        public class ChangeConstants
+        {
+            public IEnumerable<ChangeConstantsConstants> Constants { get; set; } = new List<ChangeConstantsConstants>();
+            public IEnumerable<KeyValuePair<string, string>> Files { get; set; } = new List<KeyValuePair<string, string>>();
+
+            public string RowPattern { get; set; }
+
+            public class ChangeConstantsConstants
+            {
+                public string Key { get; set; }
+                public string Value { get; set; }
+
+                public ChangeConstantsConstantsSql Sql { get; set; }
+
+                public class ChangeConstantsConstantsSql
+                {
+                    public IEnumerable<string> Databases { get; set; } = new List<string>();
+                    public string Script { get; set; }
+                }
+            }
+        }
+        #endregion
     }
 }

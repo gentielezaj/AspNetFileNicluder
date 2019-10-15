@@ -45,6 +45,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Logic\ChangeConstant\ChangeConstantToolBoxControl.xaml.cs">
+      <DependentUpon>ChangeConstantToolBoxControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\ChangeConstant\ProvideToolboxControlAttribute.cs" />
     <Compile Include="Logic\Configs\Config.cs" />
     <Compile Include="Logic\Includers\FileIncluder.cs" />
     <Compile Include="Logic\Includers\FIleIncluderToolboxControl.xaml.cs">
@@ -123,6 +127,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Logic\ChangeConstant\ChangeConstantToolBoxControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Logic\Includers\FIleIncluderToolboxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +144,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

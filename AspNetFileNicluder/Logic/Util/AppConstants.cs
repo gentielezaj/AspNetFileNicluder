@@ -19,6 +19,7 @@ namespace AspNetFileNicluder.Logic.Utils
             public const string Projects = "projects";
             public const string Name = "anfnConfig.json";
             public const string DataBase = "database";
+            public const string ChangeConstants = "changeConstants";
         }
     }
 }

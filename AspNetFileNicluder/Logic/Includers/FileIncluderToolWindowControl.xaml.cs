@@ -69,6 +69,7 @@
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var filesToInclude = new Dictionary<Project, IEnumerable<FileInfo>>();
 
             foreach(var item in Results)

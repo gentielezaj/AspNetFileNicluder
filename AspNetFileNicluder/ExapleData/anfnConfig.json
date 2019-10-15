@@ -6,8 +6,8 @@
     "folderPickerDefaltPath": "D:\\Nilex-data\\ReleaseNotesAndSQL\\10.7.6",
     "connectionStrings": [
       {
-        "name": "NSP176",
-        "connectionString": "Server=DESKTOP-H3F45U2\\SQLEXPRESS;Database=NSP176;Trusted_Connection=True;Connection Timeout=1000;",
+        "name": "NSPQA76",
+        "connectionString": "Server=DESKTOP-H3F45U2\\SQLEXPRESS;Database=NSPQA76;Trusted_Connection=True;Connection Timeout=1000;",
         "filterPattern": "^(Getting |Replacing ){0,1}[A-Z]:.+\\\\NSPDataDb\\\\.+[.]sql$",
         "replasePattern": "^(Getting|Replacing) ",
         "ignorePattern": null,
@@ -46,10 +46,34 @@
       ]
     }
   },
+  "changeConstants": {
+    "constants": [
+      {
+        "key": "server",
+        "value": "<add key=\"authserver:Authority\" value=\"http://identity.nilex6.bildhosting.me/\" />",
+        "sql": {
+          "dataBases": [ "NSPQA76" ], // black or null for all dbs
+          "script": "update app.GlobalSettings set [value] = 'https://identity.nilex6.bildhosting.me' where [key] = 'NSPAuthServerAddress'"
+        }
+      },
+      {
+        "key": "local",
+        "value": "<add key=\"authserver:Authority\" value=\"http://localhost:44333/\" />",
+        "sql": {
+          "databases": [ "NSPQA76" ], // black or null for all dbs
+          "script": "update app.GlobalSettings set [value] = 'http://localhost:44333' where [key] = 'NSPAuthServerAddress'"
+        }
+      }
+    ],
+    "files": [
+      {
+        "key": "NSP.Web",
+        "value": "web.config"
+      }
+    ],
+    "rowPattern": "<add key=\"authserver:Authority\" value=\"http(s)?:(/){2}[a-z0-9:.]*(/)?\"[ ]*/>"
+  },
   "catchDisable": [
     "GetInMemoryTablesCategory"
-  ],
-  "valueChanger":[
-    "{solutionDir}\\NSP.Web\\web.config"
   ]
 }

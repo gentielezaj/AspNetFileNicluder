@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.Shell.Interop;
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.VisualStudio.Shell;
 
 namespace AspNetFileNicluder.Logic.Util
 {
@@ -44,6 +45,7 @@ namespace AspNetFileNicluder.Logic.Util
 
         public static void ConsoleWriteException(Exception exception, params string[] text)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var exInner = string.Empty;
             var exText = text.ToList();
             while(exception != null) 

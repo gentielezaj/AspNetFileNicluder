@@ -1,1 +1,28 @@
-﻿Replacing D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\Merge script from 10.7.5\NSPDataDb\NSPDataDb - Merge Subset Script 10.75.05800-05900 to 10.76.sql
+﻿Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.AccessControl\EntityAccessControl\EntityAccessRulesHelper.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.AccessControl\EntityAccessControl\EntityAccessVectorGeneratorTriggerService.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.AccessControl\EntityAccessControl\EntityAccessVectorsHandler.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.AccessControl\EntityAccessControl\Generators\EntityAccessVectorGenerator.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.BusinessLogic\Repository\Bill\CustomerAccount\CustomerAccountRepository.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.DataLayer\SystemEntityMappings\BILL\bill.CustomerAccountsView.hbm.xml
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.DataModel\App\FeatureCore\IAccessVectorComponent.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.DataModel\Bill\CustomerAccounts\CustomerAccountsView.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Entities\Bill\CustomerAccounts\CustomerAccountView.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Repository\Bill\CustomerAccount\ICustomerAccountRepository.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.RESTApi\Controllers\Bill\CustomerAccount\CustomerAccountController.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Util\NSP.Util.csproj
+Getting C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Util\Extensions\UnityContainerExtensions.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Controllers\Bill\CustomerAccounts\CustomerAccountController.cs
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.Web\Controllers\Bill\CustomerAccounts\CustomerAccountViewController.cs
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\02300\NSPDataDb\20190926
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\02300\NSPDataDb\20190926\CustomerAccountView added billing category flags.sql
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\02300\NSPDataDb\20190926\Update CustomerAccointId FormInformation in Contract form.sql
+
+ ====== Asp net file Inclider delimiter ======
+AttachmentHelper.cs has been automatically checked out for editing.
+IAttachmentRepository.cs has been automatically checked out for editing.
+Replacing C:\Users\gogi_\Nilex\Minor 10.7.6.xxx\NSP.DataModel\Bill\Lease\LeasedCis\LeasedCis.cs
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\02300\NSPDataDb\20190927
+Getting D:\Nilex-data\ReleaseNotesAndSQL\10.7.6\02300\NSPDataDb\20190927\RemoveInvalidEntriesFromAccessVectorGeneratorTriggers.sql
+
+ ====== Asp net file Inclider delimiter ======
+Changeset 33047 successfully checked in.

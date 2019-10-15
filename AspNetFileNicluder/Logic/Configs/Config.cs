@@ -14,6 +14,7 @@ namespace AspNetFileNicluder.Logic.Configs
     {
         public static bool OpenConfigFile(AsyncPackage package)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Workspace.IsOpenSolution)
             {
                 VsShellUtilities.ShowMessageBox(

@@ -2,6 +2,7 @@
 using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
+using AspNetFileNicluder.Logic.ChangeConstant;
 using AspNetFileNicluder.Logic.Configs;
 using AspNetFileNicluder.Logic.Includers;
 using AspNetFileNicluder.Logic.SQL;
@@ -25,6 +26,7 @@ namespace AspNetFileNicluder.MainMenus
         public const int CommandId = 0x0100;
         public const int OpenConfigFile = 0x0099;
         public const int RunSqlFolder = 0x0104;
+        public const int ChangeConstant = 0x0105;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -58,6 +60,10 @@ namespace AspNetFileNicluder.MainMenus
             var menuCommandRunSqlFolder = new CommandID(CommandSet, RunSqlFolder);
             var menuItemRunSqlFolder = new MenuCommand(this.OpenFolderRunner, menuCommandRunSqlFolder);
             commandService.AddCommand(menuItemRunSqlFolder);
+
+            var menuCommandChangeConstant = new CommandID(CommandSet, ChangeConstant);
+            var menuItemChangeConstant = new MenuCommand(this.OpenChangeConstantDialog, menuCommandChangeConstant);
+            commandService.AddCommand(menuItemChangeConstant);
         }
 
         /// <summary>
@@ -117,6 +123,24 @@ namespace AspNetFileNicluder.MainMenus
             //tool.ShowDialog();
         }
 
+        private void OpenChangeConstantDialog(object sender, EventArgs e)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            if (!Workspace.IsOpenSolution)
+                VsShellUtilities.ShowMessageBox(
+                    this.package,
+                    "No soluton opend",
+                    "Execute sql files",
+                    OLEMSGICON.OLEMSGICON_CRITICAL,
+                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+
+            var popup = new ChangeConstantToolBoxControl(OpenExecuteResultDialogMessage);
+
+            popup.ShowDialog();
+        }
+
         private void OpenFolderRunner(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
@@ -135,6 +159,12 @@ namespace AspNetFileNicluder.MainMenus
 
             var exexuted = new SqlRuner().ExecuteFromDirectoryPath(path);
             OpenExecuteResultDialogMessage(exexuted);
+        }
+
+        private bool OpenExecuteResultDialogMessage(bool executeResult)
+        {
+            OpenExecuteResultDialogMessage(executeResult ? 0 : 1);
+            return true;
         }
 
         private void OpenExecuteResultDialogMessage(int executeResult)

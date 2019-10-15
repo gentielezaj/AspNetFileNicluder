@@ -11,6 +11,10 @@ using Microsoft.SqlServer.Management.Smo;
 using System.Text;
 using System.Threading;
 using AspNetFileNicluder.Logic.Utils;
+using System.Collections;
+using System.Collections.Generic;
+using static AspNetFileNicluder.Logic.Util.Settings;
+using Microsoft.VisualStudio.Shell;
 
 namespace AspNetFileNicluder.Logic.SQL
 {
@@ -23,6 +27,7 @@ namespace AspNetFileNicluder.Logic.SQL
         #region ExecuteFromDirectoryPath
         public int ExecuteFromDirectoryPath(string path)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!Directory.Exists(path)) return -1;
 
             var files = Directory.GetFiles(path, "*.*", SearchOption.AllDirectories);  //Directory.GetFileSystemEntries(path, "*", ).ToArray();
@@ -71,11 +76,45 @@ namespace AspNetFileNicluder.Logic.SQL
             return ExecuteFiles(rows);
         }
 
-        public int ExecuteFiles(params string[] files)
+        public int ExecuteString(string sqlScript, IEnumerable<DatabaseConnectionString> connectionStrings = null)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            if (string.IsNullOrWhiteSpace(sqlScript))
+            {
+                return 0;
+            }
+
+            var errorCount = -1;
+            foreach (var connectionString in connectionStrings ?? Settings.Databases.ConnectionStrings)
+            {
+                errorCount = 0;
+                System.Data.SqlClient.SqlConnection sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString.ConnectionString);
+                ServerConnection svrConnection = new ServerConnection(sqlConnection);
+                Server server = new Server(svrConnection);
+                AppOutput.ConsoleWriteLine("------ Database: " + sqlConnection.Database + " -------");
+                try
+                {
+                    var a = server.ConnectionContext.ExecuteNonQuery(sqlScript) > -1;
+                    AppOutput.ConsoleWriteLine("Executed script: " + sqlScript);
+                }
+                catch (Exception e)
+                {
+                    AppOutput.ConsoleWriteException(e, "Error script at: " + sqlScript);
+                    throw;
+                }
+
+                sqlConnection.Close();
+            }
+
+            return errorCount;
+        }
+
+        public int ExecuteFiles(string[] files, IEnumerable<DatabaseConnectionString> connectionStrings = null)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var havFilesToExecute = false;
             var errorCount = 0;
-            foreach (var connectionString in Settings.Databases.ConnectionStrings)
+            foreach (var connectionString in connectionStrings ?? Settings.Databases.ConnectionStrings)
             {
                 System.Data.SqlClient.SqlConnection sqlConnection = new System.Data.SqlClient.SqlConnection(connectionString.ConnectionString);
                 ServerConnection svrConnection = new ServerConnection(sqlConnection);

@@ -84,6 +84,14 @@
         </Strings>
       </Button>
       
+      <Button guid="guidAspNetFileNicluderPackageCmdSet" id="ChangeConstant"  priority="0x0105" type="Button">
+        <Parent guid="guidAspNetFileNicluderPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages" id="bmpPic1" />
+        <Strings>
+          <ButtonText>Change constant</ButtonText>
+        </Strings>
+      </Button>
+      
       <Button guid="guidAspNetFileNicluderPackageCmdSet" id="MainMenuId" priority="0x0100" type="Button">
         <Parent guid="guidAspNetFileNicluderPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPic1" />
@@ -137,6 +145,7 @@
       <IDSymbol name="MyMenuGroup" value="0x1020" />
       <IDSymbol name="OpenCofigFile" value="0x0099" />
       <IDSymbol name="RunSqlFolder" value="0x0104" />
+      <IDSymbol name="ChangeConstant" value="0x0105" />
       <IDSymbol name="MainMenuId" value="0x0100" />
       <IDSymbol name="TopLevelMenu" value="0x1021" />
       <IDSymbol name="Command2Id" value="0x0102" />
