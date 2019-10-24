@@ -55,9 +55,9 @@ namespace AspNetFileNicluder.Logic.SQL
                         var text = sel.Text;
                         if (Settings.Databases.SetDelimiterOnPanesAfterRead)
                         {
-                            var indexOfDelimiter = result.LastIndexOf(AppConstants.DelimiterOnPanesAfterRead);
+                            var indexOfDelimiter = text.LastIndexOf(AppConstants.DelimiterOnPanesAfterRead);
                             if (indexOfDelimiter > 0)
-                                result = result.Substring(indexOfDelimiter);
+                                text = text.Substring(indexOfDelimiter);
 
                             pane.OutputString(Environment.NewLine + AppConstants.DelimiterOnPanesAfterRead + Environment.NewLine);
                         }
