@@ -9,6 +9,7 @@ using AspNetFileNicluder.Logic.SQL;
 using AspNetFileNicluder.Logic.SQL.Picker;
 using AspNetFileNicluder.Logic.Util;
 using AspNetFileNicluder.Logic.Utils;
+using Microsoft.Internal.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
@@ -126,8 +127,8 @@ namespace AspNetFileNicluder.MainMenus
         private void OpenChangeConstantDialog(object sender, EventArgs e)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-
             if (!Workspace.IsOpenSolution)
+            {
                 VsShellUtilities.ShowMessageBox(
                     this.package,
                     "No soluton opend",
@@ -135,10 +136,26 @@ namespace AspNetFileNicluder.MainMenus
                     OLEMSGICON.OLEMSGICON_CRITICAL,
                     OLEMSGBUTTON.OLEMSGBUTTON_OK,
                     OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                return;
+            }
 
+            IVsUIShell uiShell = (IVsUIShell)ServiceProvider.GetServiceAsync(typeof(SVsUIShell)).Result;
             var popup = new ChangeConstantToolBoxControl(OpenExecuteResultDialogMessage);
+            popup.IsCloseButtonEnabled = true;
+            IntPtr hwnd;
+            uiShell.GetDialogOwnerHwnd(out hwnd);
+            popup.WindowStartupLocation = System.Windows.WindowStartupLocation.CenterOwner;
+            uiShell.EnableModeless(0);
+            try
+            {
+                WindowHelper.ShowModal(popup, hwnd);
+            }
+            finally
+            {
+                // This will take place after the window is closed.
+                uiShell.EnableModeless(1);
+            }
 
-            popup.ShowDialog();
         }
 
         private void OpenFolderRunner(object sender, EventArgs e)

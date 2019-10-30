@@ -37,8 +37,8 @@ namespace AspNetFileNicluder.Logic.ChangeConstant
         }
 
         private void Submit_Click(object sender, RoutedEventArgs e)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
+        { 
+
             if (ReferencesNew.SelectedValue == null)
             {
                 this.Close();
@@ -49,7 +49,7 @@ namespace AspNetFileNicluder.Logic.ChangeConstant
             var result = ChangeFiles(item);
 
             callBack(result);
-
+            
             this.Close();
         }
 
