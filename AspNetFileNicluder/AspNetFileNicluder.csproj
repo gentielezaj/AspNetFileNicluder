@@ -72,6 +72,7 @@
     <Compile Include="Logic\Util\Settings.cs" />
     <Compile Include="Logic\Util\Workspace.cs" />
     <Compile Include="MainMenus\MainMenu.cs" />
+    <Compile Include="MainMenus\Toolbar\Command1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AspNetFileNicluderPackage.cs" />
   </ItemGroup>
@@ -121,6 +122,8 @@
     <VSCTCompile Include="MainMenus\AspNetFileNicluderPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
     </VSCTCompile>
+    <Content Include="MainMenus\Resources\execute.png" />
+    <Content Include="MainMenus\Toolbar\Resources\Command1.png" />
     <Content Include="Newtonsoft.Json.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -144,7 +147,9 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Logic\SQL\Toolbar\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

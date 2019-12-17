@@ -33,6 +33,7 @@ namespace AspNetFileNicluder.MainMenus
         /// Command menu group (command set GUID).
         /// </summary>
         public static readonly Guid CommandSet = new Guid("ca7faa7a-f352-4253-8cc5-f3d8846e6d00");
+        public static readonly Guid ToolbarSet = new Guid("50986476-bba8-435e-a104-81c298efc4ef");
 
         /// <summary>
         /// VS Package that provides this command, not null.
@@ -53,6 +54,10 @@ namespace AspNetFileNicluder.MainMenus
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new MenuCommand(this.Execute, menuCommandID);
             commandService.AddCommand(menuItem);
+
+            var toolbarComand = new CommandID(ToolbarSet, CommandId);
+            var toolbarMenu = new MenuCommand(this.Execute, toolbarComand);
+            commandService.AddCommand(toolbarMenu);
 
             var menuCommandID1 = new CommandID(CommandSet, OpenConfigFile);
             var menuItem1 = new MenuCommand(this.OpenCofigFile, menuCommandID1);

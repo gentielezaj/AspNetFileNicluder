@@ -4,6 +4,7 @@ using System.Threading;
 using AspNetFileNicluder.Logic;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
 
 namespace AspNetFileNicluder
@@ -30,11 +31,10 @@ namespace AspNetFileNicluder
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideAutoLoad(PackageGuidString)]
     [ProvideUIContextRule(PackageGuidString,
-    name: "Test auto load",
-    expression: "SingleProject | MultipleProjects",
-    termNames: new[] { "SingleProject", "MultipleProjects" },
-    termValues: new[] { "SolutionHasProjectCapability:ASP.NET5", "SolutionHasProjectCapability:ASP.NET5" })]
-    [ProvideToolWindow(typeof(AspNetFileNicluder.Logic.Includers.FileIncluderToolWindow))]
+    name: "guidAspNetFileNicluderPackageCmdSetVisibility",
+    expression: "guidAspNetFileNicluderPackageCmdSetVisibility",
+    termNames: new[] { "guidAspNetFileNicluderPackageCmdSetVisibility" },
+    termValues: new[] { VSConstants.UICONTEXT.SolutionExistsAndFullyLoaded_string })]
     public sealed class AspNetFileNicluderPackage : AsyncPackage
     {
         /// <summary>
@@ -58,6 +58,7 @@ namespace AspNetFileNicluder
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await AspNetFileNicluder.MainMenus.MainMenu.InitializeAsync(this);
             await AspNetFileNicluder.Logic.Includers.FileIncluderToolWindowCommand.InitializeAsync(this);
+            await AspNetFileNicluder.MainMenus.Toolbar.Command1.InitializeAsync(this);
         }
 
         #endregion
