@@ -58,7 +58,7 @@ namespace AspNetFileNicluder
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await AspNetFileNicluder.MainMenus.MainMenu.InitializeAsync(this);
             await AspNetFileNicluder.Logic.Includers.FileIncluderToolWindowCommand.InitializeAsync(this);
-            await AspNetFileNicluder.MainMenus.Toolbar.Command1.InitializeAsync(this);
+            //await AspNetFileNicluder.MainMenus.Toolbar.Command1.InitializeAsync(this);
         }
 
         #endregion
