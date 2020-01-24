@@ -19,9 +19,9 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Key}" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold" />
                         <TextBlock Text=", " />
-                        <TextBlock Text="{Binding Value}" />
+                        <TextBlock Text="{Binding Description}" />
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>

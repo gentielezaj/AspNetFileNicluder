@@ -48,8 +48,10 @@
     <Compile Include="Logic\ChangeConstant\ChangeConstantToolBoxControl.xaml.cs">
       <DependentUpon>ChangeConstantToolBoxControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\ChangeConstant\ChangeFiles.cs" />
     <Compile Include="Logic\ChangeConstant\ProvideToolboxControlAttribute.cs" />
     <Compile Include="Logic\Configs\Config.cs" />
+    <Compile Include="Logic\Core\IDialogWindow.cs" />
     <Compile Include="Logic\Includers\FileIncluder.cs" />
     <Compile Include="Logic\Includers\FIleIncluderToolboxControl.xaml.cs">
       <DependentUpon>FIleIncluderToolboxControl.xaml</DependentUpon>
@@ -70,6 +72,8 @@
     <Compile Include="Logic\Util\AppOutput.cs" />
     <Compile Include="Logic\Util\BaseExecuter.cs" />
     <Compile Include="Logic\Util\Settings.cs" />
+    <Compile Include="Logic\Util\StaticExtensions\StaticDictionary.cs" />
+    <Compile Include="Logic\Util\UnitTestDetector.cs" />
     <Compile Include="Logic\Util\Workspace.cs" />
     <Compile Include="MainMenus\MainMenu.cs" />
     <Compile Include="MainMenus\Toolbar\Command1.cs" />
@@ -77,6 +81,7 @@
     <Compile Include="AspNetFileNicluderPackage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ExapleData\anfnConfig-text.json" />
     <None Include="ExapleData\anfnConfig.json" />
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
@@ -147,9 +152,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Logic\SQL\Toolbar\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

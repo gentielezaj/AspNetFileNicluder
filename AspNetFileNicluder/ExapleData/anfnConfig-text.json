@@ -1,4 +1,4 @@
-{
+﻿{
   "database": {
     "panes": [ "Source Control - Team Foundation" ],
     "setDelimiterOnPanesAfterRead": true,
@@ -50,72 +50,9 @@
   },
   "changeConstants": [
     {
-      "name": "authority server",
-      "decription": "http://identity.nilex6.bildhosting.me",
-      "sql": {
-        "dataBases": [ "NSPQA76" ], // black or null for all dbs
-        "script": "update app.GlobalSettings set [value] = 'http://identity.nilex6.bildhosting.me' where [key] = 'NSPAuthServerAddress'"
-      },
-      "files": [
-        {
-          "projectNames": [
-            "NSP.Web",
-            "NSP.RESTApi",
-            "NSP.SelfServicePortal",
-            "NSP.Mobile"
-          ],
-          "file": "web.config",
-          "pattern": "<add key=\"authserver:Authority\" value=\"http(s)?:(\/){2}[a-z0-9:.]*(\/)?\"[ ]*\/>",
-          "value": "<add key=\"authserver:Authority\" value=\"http://identity.nilex6.bildhosting.me/\" />"
-        }
-      ]
-    },
-    {
-      "name": "authority local",
-      "decription": "http://nsp.local:44333",
-      "sql": {
-        "databases": [ "NSPQA76" ], // black or null for all dbs
-        "script": "update app.GlobalSettings set [value] = 'http://nsp.local:44333' where [key] = 'NSPAuthServerAddress'"
-      },
-      "files": [
-        {
-          "projectNames": [
-            "NSP.Web",
-            "NSP.RESTApi",
-            "NSP.SelfServicePortal",
-            "NSP.Mobile"
-          ],
-          "file": "web.config",
-          "pattern": "<add key=\"authserver:Authority\" value=\"http(s)?:(\/){2}[a-z0-9:.]*(\/)?\"[ ]*\/>",
-          "value": "<add key=\"authserver:Authority\" value=\"http://nsp.local:44333/\" />"
-        }
-      ]
-    },
-    {
-      "name": "database - 176",
-      "decription": "change database NSPQA76",
-      "files": [
-        {
-          "projectNames": [
-            "NSP.RESTApi",
-            "NSP.MaintenanceHost"
-          ],
-          "files": [ "web.config", "App.config" ],
-          "pattern": "(<add.+name=\"SingleTenantModeDatabaseConnectionString\").+(/>)",
-          "value": "<add name=\"SingleTenantModeDatabaseConnectionString\" connectionString=\"Server=DESKTOP-H3F45U2\\SQLEXPRESS;Database=NSPQA76;Trusted_Connection=True;Connection Timeout=1000;\" providerName=\"System.Data.SqlClient\"/>"
-        },
-        {
-          "projectName": "NSP.AuthServerCore",
-          "file": "appsettings.json",
-          "pattern": "(\"SingleTenantModeDatabaseConnectionString\": \").+(\",)",
-          "value": "\"SingleTenantModeDatabaseConnectionString\": \"Server=DESKTOP-H3F45U2\\\\SQLEXPRESS;Database=NSPQA76;Trusted_Connection=True;Connection Timeout=1000;\","
-        }
-      ]
-    },
-    {
       "name": "costum db",
       "decription": "tempoary dbs",
-      "formatValues": [ "NSPQA76" ],
+      "formatValues": [ "NSPQA761" ],
       "files": [
         {
           "file": "C:\\Users\\gogi_\\source\\AspNetFileNicluder\\UnitTest\\TestFiles\\CostumDb\\webConfig.xml",

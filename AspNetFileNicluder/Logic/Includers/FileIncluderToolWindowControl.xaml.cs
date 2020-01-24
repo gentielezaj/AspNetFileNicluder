@@ -1,7 +1,10 @@
 ﻿namespace AspNetFileNicluder.Logic.Includers
 {
+    using AspNetFileNicluder.Logic.Core;
     using EnvDTE;
+    using Microsoft.VisualStudio.PlatformUI;
     using Microsoft.VisualStudio.Shell;
+    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Diagnostics.CodeAnalysis;
@@ -14,19 +17,27 @@
     /// <summary>
     /// Interaction logic for FileIncluderToolWindowControl.
     /// </summary>
-    public partial class FileIncluderToolWindowControl : UserControl
+    public partial class FileIncluderToolWindowControl : DialogWindow, IDialogWindow
     {
         public ObservableCollection<FileListResultModel> Results { get; set; }
         public readonly FileIncluder fileIncluder;
+        private readonly Func<bool, bool> callBack;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="FileIncluderToolWindowControl"/> class.
         /// </summary>
-        public FileIncluderToolWindowControl()
+        public FileIncluderToolWindowControl(Func<bool, bool> callBack = null)
         {
             fileIncluder = new FileIncluder();
             Results = GetResults(fileIncluder.GetUnicludedFiles());
             this.InitializeComponent();
             this.DataContext = this;
+            this.callBack = callBack;
+        }
+        
+        public DialogWindow Create(Func<bool, bool> callback = null)
+        {
+            return new FileIncluderToolWindowControl(callback);
         }
 
         public void Refresh()
@@ -69,15 +80,29 @@
 
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            var filesToInclude = new Dictionary<Project, IEnumerable<FileInfo>>();
-
-            foreach(var item in Results)
+            var executed = true;
+            try
             {
-                filesToInclude.Add(item.Project, item.Files.Where(f => f.IsSelected).Select(f => f.File));
-            }
+                ThreadHelper.ThrowIfNotOnUIThread();
+                var filesToInclude = new Dictionary<Project, IEnumerable<FileInfo>>();
 
-            fileIncluder.IncludeFiles(filesToInclude);
+                foreach (var item in Results)
+                {
+                    filesToInclude.Add(item.Project, item.Files.Where(f => f.IsSelected).Select(f => f.File));
+                }
+
+                fileIncluder.IncludeFiles(filesToInclude);
+            }
+            catch (Exception)
+            {
+                executed = false;
+                throw;
+            } 
+            finally
+            {
+                this.Close();
+                if (callBack != null) callBack.Invoke(executed);
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

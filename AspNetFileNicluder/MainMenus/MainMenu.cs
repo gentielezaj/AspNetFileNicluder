@@ -4,12 +4,14 @@ using System.IO;
 using System.Linq;
 using AspNetFileNicluder.Logic.ChangeConstant;
 using AspNetFileNicluder.Logic.Configs;
+using AspNetFileNicluder.Logic.Core;
 using AspNetFileNicluder.Logic.Includers;
 using AspNetFileNicluder.Logic.SQL;
 using AspNetFileNicluder.Logic.SQL.Picker;
 using AspNetFileNicluder.Logic.Util;
 using AspNetFileNicluder.Logic.Utils;
 using Microsoft.Internal.VisualStudio.PlatformUI;
+using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Task = System.Threading.Tasks.Task;
@@ -28,6 +30,7 @@ namespace AspNetFileNicluder.MainMenus
         public const int OpenConfigFile = 0x0099;
         public const int RunSqlFolder = 0x0104;
         public const int ChangeConstant = 0x0105;
+        public const int FileIncuderId = 0x0102;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -70,6 +73,10 @@ namespace AspNetFileNicluder.MainMenus
             var menuCommandChangeConstant = new CommandID(CommandSet, ChangeConstant);
             var menuItemChangeConstant = new MenuCommand(this.OpenChangeConstantDialog, menuCommandChangeConstant);
             commandService.AddCommand(menuItemChangeConstant);
+
+            var menuFileIncluder = new CommandID(CommandSet, FileIncuderId);
+            var menuItemFileIncuder = new MenuCommand(this.OpenFileDialog, menuFileIncluder);
+            commandService.AddCommand(menuItemFileIncuder);
         }
 
         /// <summary>
@@ -129,7 +136,18 @@ namespace AspNetFileNicluder.MainMenus
             //tool.ShowDialog();
         }
 
+        private void OpenFileDialog(object sender, EventArgs e)
+        {
+            OpenDialog<FileIncluderToolWindowControl>();
+        }
+
         private void OpenChangeConstantDialog(object sender, EventArgs e)
+        {
+            OpenDialog<ChangeConstantToolBoxControl>();
+        }
+
+        private void OpenDialog<T>() 
+            where T : DialogWindow
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             if (!Workspace.IsOpenSolution)
@@ -145,7 +163,10 @@ namespace AspNetFileNicluder.MainMenus
             }
 
             IVsUIShell uiShell = (IVsUIShell)ServiceProvider.GetServiceAsync(typeof(SVsUIShell)).Result;
-            var popup = new ChangeConstantToolBoxControl(OpenExecuteResultDialogMessage);
+
+            Func<bool, bool> callback = OpenExecuteResultDialogMessage;
+            var popup = Activator.CreateInstance(typeof(T), callback ) as T;
+
             popup.IsCloseButtonEnabled = true;
             IntPtr hwnd;
             uiShell.GetDialogOwnerHwnd(out hwnd);

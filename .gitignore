@@ -7,3 +7,7 @@
 /AspNetFileNicluder/obj
 /FastApp/bin
 /FastApp/obj
+/UnitTest/bin
+/UnitTest/obj
+/UnitTest/TestFiles/CostumDb/0
+/packages

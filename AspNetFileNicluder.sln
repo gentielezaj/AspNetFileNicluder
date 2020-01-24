@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetFileNicluder", "AspNe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastApp", "FastApp\FastApp.csproj", "{CCA1E2EA-F283-4C51-B0D5-C8661FAD08D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{75BDB287-1A55-4498-8332-3A22F0A25FDC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CCA1E2EA-F283-4C51-B0D5-C8661FAD08D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCA1E2EA-F283-4C51-B0D5-C8661FAD08D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCA1E2EA-F283-4C51-B0D5-C8661FAD08D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75BDB287-1A55-4498-8332-3A22F0A25FDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75BDB287-1A55-4498-8332-3A22F0A25FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75BDB287-1A55-4498-8332-3A22F0A25FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75BDB287-1A55-4498-8332-3A22F0A25FDC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

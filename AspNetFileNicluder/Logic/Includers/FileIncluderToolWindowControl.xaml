@@ -1,4 +1,6 @@
-﻿<UserControl x:Class="AspNetFileNicluder.Logic.Includers.FileIncluderToolWindowControl"
+﻿<ui:DialogWindow 
+    xmlns:ui="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Shell.15.0"
+    x:Class="AspNetFileNicluder.Logic.Includers.FileIncluderToolWindowControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -62,4 +64,4 @@
         </ListView>
         <Button Content="Submit" x:Name="Submit" Click="Submit_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
     </Grid>
-</UserControl>
+</ui:DialogWindow>

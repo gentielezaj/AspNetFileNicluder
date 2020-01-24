@@ -1,0 +1,17 @@
+{
+  "PlatformConfiguration": {
+    "DatabaseType": "MSSql2008",
+    "IsAzureEnvironment": false,
+    "IsPerformanceMeasureMode": false,
+    "PerformanceLogPath": null,
+    "SingleTenantModeDatabaseConnectionString": "Server=DESKTOP-H3F45U2\\SQLEXPRESS;Database=NSPQA77;Trusted_Connection=True;Connection Timeout=1000;",
+    "SingleTenantModeRealm": null,
+    "TenantUriRe": null
+  },
+
+  "AppConfiguration": {
+    "ReCaptchaSecret": "",
+    "SigningCertificateFileName": "IdentityServer4Auth.pfx",
+    "SigningCertificatePassword": "123456"
+  }
+}
