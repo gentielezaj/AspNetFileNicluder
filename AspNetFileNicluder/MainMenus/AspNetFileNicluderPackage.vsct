@@ -87,6 +87,24 @@
         </Strings>
       </Button>
 
+      <Button guid="guidAspNetFileNicluderPackageCmdSet" id="TfsSql" priority="0x0106" type="Button">
+        <Parent guid="guidAspNetFileNicluderPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="guidImages" id="bmpPic2" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>TFS sql</ButtonText>
+        </Strings>
+      </Button>
+
+      <Button guid="guidAspNetFileIcluderToolBarPackageCmdSet" id="TfsSql" priority="0x0101" type="Button">
+        <Parent guid="guidAspNetFileIcluderToolBarPackageCmdSet" id="ToolbarGroup" />
+        <Icon guid="guidImages" id="bmpPic2" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>TFS sql</ButtonText>
+        </Strings>
+      </Button>
+
       <Button guid="guidAspNetFileNicluderPackageCmdSet" id="ChangeConstant" priority="0x0105" type="Button">
         <Parent guid="guidAspNetFileNicluderPackageCmdSet" id="MyMenuGroup" />
         <Icon guid="guidImages" id="bmpPicArrows" />
@@ -144,6 +162,7 @@
       <IDSymbol name="Toolbar" value="0x2000" />
       <IDSymbol name="ToolbarGroup" value="0x2050" />
       <IDSymbol name="MainMenuId" value="0x0100" />
+      <IDSymbol name="TfsSql" value="0x0106" />
     </GuidSymbol>
     
     <!-- This is the package guid. -->
@@ -155,6 +174,7 @@
       <IDSymbol name="OpenCofigFile" value="0x0099" />
       <IDSymbol name="RunSqlFolder" value="0x0104" />
       <IDSymbol name="ChangeConstant" value="0x0105" />
+      <IDSymbol name="TfsSql" value="0x0106" />
       <IDSymbol name="MainMenuId" value="0x0100" />
       <IDSymbol name="TopLevelMenu" value="0x1021" />
       <IDSymbol name="Command2Id" value="0x0102" />

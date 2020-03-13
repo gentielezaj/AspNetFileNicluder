@@ -67,11 +67,13 @@
     <Compile Include="Logic\SQL\Picker\ToolboxControl1.xaml.cs">
       <DependentUpon>ToolboxControl1.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Logic\TfsIncluders\TfsIncluder.cs" />
     <Compile Include="Logic\Util\AppConstants.cs" />
     <Compile Include="Logic\SQL\SqlRuner.cs" />
     <Compile Include="Logic\Util\AppOutput.cs" />
     <Compile Include="Logic\Util\BaseExecuter.cs" />
     <Compile Include="Logic\Util\Settings.cs" />
+    <Compile Include="Logic\Util\SettingsValueResolver.cs" />
     <Compile Include="Logic\Util\StaticExtensions\StaticDictionary.cs" />
     <Compile Include="Logic\Util\UnitTestDetector.cs" />
     <Compile Include="Logic\Util\Workspace.cs" />
@@ -108,6 +110,12 @@
     </PackageReference>
     <PackageReference Include="Microsoft.SqlServer.SqlManagementObjects">
       <Version>150.18147.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.TeamFoundation.VersionControl.All">
+      <Version>12.0.30723.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.TeamFoundationServer.ExtendedClient">
+      <Version>16.153.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.SDK" Version="16.0.202" ExcludeAssets="runtime">
       <IncludeAssets>compile; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

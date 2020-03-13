@@ -23,13 +23,23 @@ namespace AspNetFileNicluder.Logic.Util
                 var obj = JObject.Parse(text);
                 Databases = SetDatabaseConnectionString(obj[AppConstants.ConfigFileConstants.DataBase].ToObject<DatabaseModel>());
                 IncludFilesToProject = obj[AppConstants.ConfigFileConstants.IncludFilesFrom].ToObject<IncludFilesToProjectModel>();
+                TfsIncluder = obj[AppConstants.ConfigFileConstants.TfsInclider].ToObject<TfsIncluderModel>();
+                Constants = obj[AppConstants.ConfigFileConstants.Constants].ToObject<Dictionary<string, string>>();
                 ChangeConstants = CreateChangeConstants(obj[AppConstants.ConfigFileConstants.ChangeConstants] as JArray); // obj[AppConstants.ConfigFileConstants.ChangeConstants].ToObject<List<ChangeConstant>>();
             }
         }
 
+        public IDictionary<string, string> Constants;
         public IncludFilesToProjectModel IncludFilesToProject { get; set; }
         public DatabaseModel Databases { get; set; }
         public List<ChangeConstant> ChangeConstants { get; set; }
+
+        public TfsIncluderModel TfsIncluder { get; set; }
+
+        public string ResolvePattern(string pattern)
+        {
+            return SettingsValueResolver.Resolve(pattern, this);
+        }
 
         #region Methodes
 
@@ -150,6 +160,14 @@ namespace AspNetFileNicluder.Logic.Util
         #endregion
 
         #region classes
+
+        public class TfsIncluderModel
+        {
+            public string ServerUrl { get; set; }
+            public string LocalMapPath { get; set; }
+            public string FileMatchPattern { get; set; }
+        }
+
         public class DatabaseModel
         {
             public DatabaseModel()

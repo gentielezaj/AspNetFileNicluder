@@ -1,15 +1,11 @@
 ﻿using System;
 using System.ComponentModel.Design;
-using System.IO;
-using System.Linq;
 using AspNetFileNicluder.Logic.ChangeConstant;
 using AspNetFileNicluder.Logic.Configs;
-using AspNetFileNicluder.Logic.Core;
 using AspNetFileNicluder.Logic.Includers;
 using AspNetFileNicluder.Logic.SQL;
-using AspNetFileNicluder.Logic.SQL.Picker;
+using AspNetFileNicluder.Logic.TfsIncluders;
 using AspNetFileNicluder.Logic.Util;
-using AspNetFileNicluder.Logic.Utils;
 using Microsoft.Internal.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.PlatformUI;
 using Microsoft.VisualStudio.Shell;
@@ -31,6 +27,7 @@ namespace AspNetFileNicluder.MainMenus
         public const int RunSqlFolder = 0x0104;
         public const int ChangeConstant = 0x0105;
         public const int FileIncuderId = 0x0102;
+        public const int TfsSqlCommandId = 0x0106;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -63,12 +60,20 @@ namespace AspNetFileNicluder.MainMenus
             commandService.AddCommand(toolbarMenu);
 
             var menuCommandID1 = new CommandID(CommandSet, OpenConfigFile);
-            var menuItem1 = new MenuCommand(this.OpenCofigFile, menuCommandID1);
+            var menuItem1 = new MenuCommand(this.OpenFolderRunner, menuCommandID1);
             commandService.AddCommand(menuItem1);
 
             var menuCommandRunSqlFolder = new CommandID(CommandSet, RunSqlFolder);
             var menuItemRunSqlFolder = new MenuCommand(this.OpenFolderRunner, menuCommandRunSqlFolder);
             commandService.AddCommand(menuItemRunSqlFolder);
+
+            var toolbarTfsSqlCommand = new CommandID(ToolbarSet, TfsSqlCommandId);
+            var toolbarMenuTsSql = new MenuCommand(this.OpenMisingTfsFiles, toolbarTfsSqlCommand);
+            commandService.AddCommand(toolbarMenuTsSql);
+
+            var menuCommandTfsSqlCommand = new CommandID(CommandSet, TfsSqlCommandId);
+            var menuItemTfsSqlMenu = new MenuCommand(this.OpenMisingTfsFiles, menuCommandTfsSqlCommand);
+            commandService.AddCommand(menuItemTfsSqlMenu);
 
             var menuCommandChangeConstant = new CommandID(CommandSet, ChangeConstant);
             var menuItemChangeConstant = new MenuCommand(this.OpenChangeConstantDialog, menuCommandChangeConstant);
@@ -146,11 +151,11 @@ namespace AspNetFileNicluder.MainMenus
             OpenDialog<ChangeConstantToolBoxControl>();
         }
 
-        private void OpenDialog<T>() 
+        private void OpenDialog<T>()
             where T : DialogWindow
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            if (!Workspace.IsOpenSolution)
+            if (!Logic.Util.Workspace.IsOpenSolution)
             {
                 VsShellUtilities.ShowMessageBox(
                     this.package,
@@ -165,7 +170,7 @@ namespace AspNetFileNicluder.MainMenus
             IVsUIShell uiShell = (IVsUIShell)ServiceProvider.GetServiceAsync(typeof(SVsUIShell)).Result;
 
             Func<bool, bool> callback = OpenExecuteResultDialogMessage;
-            var popup = Activator.CreateInstance(typeof(T), callback ) as T;
+            var popup = Activator.CreateInstance(typeof(T), callback) as T;
 
             popup.IsCloseButtonEnabled = true;
             IntPtr hwnd;
@@ -202,6 +207,24 @@ namespace AspNetFileNicluder.MainMenus
 
             var exexuted = new SqlRuner().ExecuteFromDirectoryPath(path);
             OpenExecuteResultDialogMessage(exexuted);
+        }
+
+        private void OpenMisingTfsFiles(object sender, EventArgs e)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            if (!Logic.Util.Workspace.IsOpenSolution)
+            {
+                VsShellUtilities.ShowMessageBox(
+                    this.package,
+                    "No soluton opend",
+                    "Execute sql files",
+                    OLEMSGICON.OLEMSGICON_CRITICAL,
+                    OLEMSGBUTTON.OLEMSGBUTTON_OK,
+                    OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST);
+                return;
+            }
+            var tfsIncluder = new TfsIncluder();
+            tfsIncluder.Execute();
         }
 
         private bool OpenExecuteResultDialogMessage(bool executeResult)

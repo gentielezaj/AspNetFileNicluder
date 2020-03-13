@@ -20,6 +20,8 @@ namespace AspNetFileNicluder.Logic.Utils
             public const string Name = "anfnConfig.json";
             public const string DataBase = "database";
             public const string ChangeConstants = "changeConstants";
+            public const string TfsInclider = "tfsInclider";
+            public const string Constants = "constants";
         }
     }
 }

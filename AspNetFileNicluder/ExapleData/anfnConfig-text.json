@@ -1,4 +1,7 @@
 ﻿{
+  "constants": {
+    "sqlFilesRootPath": "C:\\\\Users\\\\gogi_\\\\Nilex\\\\Release Notes and SQL\\\\10.7.7"
+  },
   "database": {
     "panes": [ "Source Control - Team Foundation" ],
     "setDelimiterOnPanesAfterRead": true,
@@ -26,6 +29,11 @@
       //  "sqlCmdPattern": null
       //}
     ]
+  },
+  "tfsInclider": {
+    "serverUrl": "http://tfs3.nilex.se:8080/tfs/defaultcollection",
+    "localMapPath": "{{sqlFilesRootPath}}",
+    "fileMatchPattern": "{{sqlFilesRootPath}}(\\\\).+(\\\\){{DateTime:format(yyyyMMdd)}}(\\\\).+[.sql]"
   },
   "includFilesToProject": {
     "fileTypes": [
