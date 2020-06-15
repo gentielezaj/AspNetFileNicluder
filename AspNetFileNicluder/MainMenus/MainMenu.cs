@@ -60,7 +60,7 @@ namespace AspNetFileNicluder.MainMenus
             commandService.AddCommand(toolbarMenu);
 
             var menuCommandID1 = new CommandID(CommandSet, OpenConfigFile);
-            var menuItem1 = new MenuCommand(this.OpenFolderRunner, menuCommandID1);
+            var menuItem1 = new MenuCommand(this.OpenCofigFile, menuCommandID1);
             commandService.AddCommand(menuItem1);
 
             var menuCommandRunSqlFolder = new CommandID(CommandSet, RunSqlFolder);
